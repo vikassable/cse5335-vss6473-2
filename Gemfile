@@ -50,5 +50,8 @@ group :production do
   gem 'rails_12factor'
 end
 
+# json response
+gem 'responders', '~> 2.0'
+
 # ruby version
 ruby "2.1.5"
