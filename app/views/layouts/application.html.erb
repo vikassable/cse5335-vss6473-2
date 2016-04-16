@@ -1,14 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Myapp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<title>Myapp</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+	<style>
 
-<%= yield %>
+		body {
+			margin: 20px;
+			font-size: 16px;
+			font-family: "Open Sans",serif;
+			background-color: #E8E6E5;
+		}
+		.table-striped{
+			background-color: #c4cbff;
+		}
+		.box_shadow {
+			box-shadow: inset 0 1px 1px rgba(0,0,0,0.75), 0 0 8px rgba(0,0,0,0.6);
+		}
+
+	</style>
+	<script type="text/javascript">
+
+		angular.module('myapp', [])
+		.factory('cars', ['$http',function($http){
+			return{
+				getCar : function(id) {
+					return $http({
+						url: '/cars/'+id,
+						method: 'GET'
+					});
+				}
+			}
+		}])
+		.controller('myCtrl',['$scope','cars', function($scope, cars){
+			$scope.hello = "hello world";
+
+			$scope.carData =[];
+			var capacity = 20;
+			var currenLength = 0;
+			getdata = function(id){
+				console.log(id);
+				cars.getCar(id).success(function(data){
+					console.log(data);
+					if(currenLength < capacity){
+						$scope.carData.push(data);
+						currenLength +=1;
+					}else{
+						$scope.carData.shift();
+						$scope.carData.push(data);
+					}
+					
+				});
+			}
+			
+			$scope.startAnimation = function(){
+				var timeout = 1000;
+				for(i = 1; i<=100; i++){
+					setTimeout(getdata(i),i* 2* timeout);
+
+				}	
+			}
+
+		}]);
+
+	</script>
+
+</head>
+<body ng-app="myapp">
+
+	<%= yield %>
 
 </body>
 </html>

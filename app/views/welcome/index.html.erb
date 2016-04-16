@@ -1,4 +1,44 @@
-<h2>Hello World</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
+<div ng-controller='myCtrl' align="center">
+
+	<button class="btn btn-primary btn-lg"  ng-click='startAnimation()'>Get Cars</button>	
+
+
+	<div style="margin: 20px;">
+		
+		<table   class="table table-striped box_shadow pull-left" style="width: 100%;" >
+			<thead>
+				<tr>
+					
+					<th>Name</th>
+					<th>Acceleration</th>
+					<th>Cylinders</th>
+					<th>Displacement</th>
+					<th>Horsepower</th>
+					<th>MPG</th>
+					<th>Model</th>
+					<th>Origin</th>
+					<th>Weight</th>
+
+				</tr>
+			</thead>
+			<tbody >
+				<tr ng-repeat="carmodel in carData">
+					<td>{{carmodel.Car}}</td>
+					<td>{{carmodel.Acceleration}}</td>
+					<td>{{carmodel.Cylinders}}</td>
+					<td>{{carmodel.Displacement}}</td>
+					<td>{{carmodel.Horsepower}}</td>
+					<td>{{carmodel.MPG}}</td>
+					<td>{{carmodel.Model}}</td>
+					<td>{{carmodel.Origin}}</td>
+					<td>{{carmodel.Weight}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
